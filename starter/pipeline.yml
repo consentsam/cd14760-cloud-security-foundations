@@ -5,7 +5,7 @@ Parameters:
   GitHubOwner:
     Type: String
     Description: Your GitHub username or organization
-    Default: udacity
+    Default: consentsam
   GitHubRepo:
     Type: String
     Description: Repository name
@@ -17,19 +17,19 @@ Parameters:
   GitHubTokenSecretName:
     Type: String
     Description: Secrets Manager secret name for GitHub OAuth token
-    Default: GitHubToken2
+    Default: GitHubToken
   ArtifactBucket:
     Type: String
     Description: S3 bucket for pipeline artifacts
-    Default: config-restricted-ssh
+    Default: consentsam-cloud-security-project-2026
   CodePipelineRoleArn:
     Type: String
     Description: ARN of the CodePipeline service role
-    Default: arn:aws:iam::001715059841:role/codepipeline-service-role
+    Default: arn:aws:iam::577638382580:role/codepipeline-service-role-cf
   CodeBuildRoleArn:
     Type: String
     Description: ARN of the CodeBuild service role
-    Default: arn:aws:iam::001715059841:role/codebuild-service-role
+    Default: arn:aws:iam::577638382580:role/codebuild-service-role-cf
 
 Resources:
   ConfigPipeline:
@@ -98,7 +98,7 @@ Resources:
               commands:
                 - echo "Deploying AWS Config Rule for Restricted SSH"
                 # Put the Config Rule (assumes template.yaml contains the rule JSON)
-                - aws configservice put-config-rule --config-rule file://template.yaml
+                - aws configservice put-config-rule --config-rule file://starter/template.yaml
                 # Optional: Describe and verify
                 - aws configservice describe-config-rules --config-rule-names org-restricted-ssh
           artifacts:
